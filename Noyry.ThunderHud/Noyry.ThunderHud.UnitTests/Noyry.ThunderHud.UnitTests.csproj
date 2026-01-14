@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resourse\localhost-indicators-aircraft-invalid-001.json" />
+    <None Remove="Resourse\localhost-state-aircraft-invalid-001.json" />
+    <None Remove="Resourse\localhost-state-aircraft-valid-001.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resourse\localhost-indicators-aircraft-invalid-001.json" />
+    <EmbeddedResource Include="Resourse\localhost-indicators-aircraft-valid-001.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resourse\localhost-state-aircraft-invalid-001.json" />
+    <EmbeddedResource Include="Resourse\localhost-state-aircraft-valid-002.json" />
+    <EmbeddedResource Include="Resourse\localhost-state-aircraft-valid-001.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSTest" Version="4.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Noyry.ThunderHud.Infrastructure\Noyry.ThunderHud.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+</Project>

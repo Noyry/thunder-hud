@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/git-files/">
+    <File Path="../.gitignore" />
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Noyry.ThunderHud.UnitTests/Noyry.ThunderHud.UnitTests.csproj" />
+  </Folder>
+  <Project Path="Noyry.ThunderHud.Application/Noyry.ThunderHud.Application.csproj" />
+  <Project Path="Noyry.ThunderHud.Domain/Noyry.ThunderHud.Domain.csproj" />
+  <Project Path="Noyry.ThunderHud.Infrastructure/Noyry.ThunderHud.Infrastructure.csproj" />
+  <Project Path="Noyry.ThunderHud.Start/Noyry.ThunderHud.Start.csproj" />
+</Solution>

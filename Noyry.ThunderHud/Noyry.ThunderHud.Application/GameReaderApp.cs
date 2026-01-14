@@ -19,7 +19,7 @@ namespace Noyry.ThunderHud.Application
 
         private async Task ReadGameIndicators(CancellationToken cancellationToken)
         {
-            var delay = TimeSpan.FromMilliseconds(10);
+            var delay = TimeSpan.FromMilliseconds(100);
 
             while (!cancellationToken.IsCancellationRequested)
             {
@@ -36,7 +36,6 @@ namespace Noyry.ThunderHud.Application
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            Console.WriteLine(_environment.ContentRootPath);
             return ReadGameIndicators(cancellationToken);
         }
     }

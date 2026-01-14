@@ -10,7 +10,7 @@ namespace Noyry.ThunderHud.Start
     {
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Console.WriteLine("Starting...");
 
             var builder = Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
@@ -26,7 +26,8 @@ namespace Noyry.ThunderHud.Start
             var app = builder.Build();
             CancellationTokenSource cts = new();
             await app.Services.GetRequiredService<GameReaderApp>().StartAsync(cts.Token);
-            Console.WriteLine("Done!");
+            
+            Console.WriteLine("Finishing...");
         }
     }
 }

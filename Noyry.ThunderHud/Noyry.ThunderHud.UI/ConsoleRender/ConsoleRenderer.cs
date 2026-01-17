@@ -1,0 +1,27 @@
+﻿using Noyry.ThunderHud.Application.Interface;
+using Noyry.ThunderHud.Domain.Model.Abstract;
+
+namespace Noyry.ThunderHud.UI.ConsoleRender
+{
+    public class ConsoleRenderer<T> : IRenderer<T> where T : IVehicle
+    {
+        public ConsoleRenderer(ConsoleRendererConfig<T> config)
+        {
+            _config = config;
+        }
+
+        private readonly ConsoleRendererConfig<T> _config;
+
+        public Task Render(T vehicle, CancellationToken cancellationToken)
+        {
+            Console.SetCursorPosition(0, 0);
+            foreach (var renderObj in _config.GetRenderObjects())
+            {
+                string value = renderObj.GetText(vehicle);
+                Console.WriteLine(value);
+            }
+
+            return Task.CompletedTask;
+        }
+    }
+}

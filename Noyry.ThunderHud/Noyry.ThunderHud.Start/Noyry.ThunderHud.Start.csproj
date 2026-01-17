@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Noyry.ThunderHud.Infrastructure\Noyry.ThunderHud.Infrastructure.csproj" />
+    <ProjectReference Include="..\Noyry.ThunderHud.UI\Noyry.ThunderHud.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

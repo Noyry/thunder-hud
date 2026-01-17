@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Noyry.ThunderHud.Application.Aircraft;
-using Noyry.ThunderHud.Domain;
+using Noyry.ThunderHud.Application.Air;
+using Noyry.ThunderHud.Domain.Model.Air;
 using System.Text.Json;
 
 namespace Noyry.ThunderHud.Infrastructure.Game

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Noyry.ThunderHud.Application.Aircraft;
-using Noyry.ThunderHud.Domain;
+using Noyry.ThunderHud.Application.Air;
+using Noyry.ThunderHud.Domain.Model.Air;
 using Noyry.ThunderHud.Infrastructure.Game.YourNamespace.Dtos;
 using System.Text.Json;
 
@@ -29,14 +29,14 @@ namespace Noyry.ThunderHud.Infrastructure.Game
             var configRead = DateTime.UtcNow;
             var cofigurationReadTime = configRead - now;
 
-            _logger.LogInformation("Config reading time {time}", cofigurationReadTime);
+            _logger.LogTrace("Config reading time {time}", cofigurationReadTime);
             
             now = DateTime.UtcNow;
             string responseBody = await _httpClient.GetStringAsync(totalAddress, cancellationToken);
             var responseGot = DateTime.UtcNow;
             var responseReadTime = responseGot - now;
 
-            _logger.LogInformation("Localhost response time {time}", responseReadTime);
+            _logger.LogTrace("Localhost response time {time}", responseReadTime);
 
             if (responseBody != null)
             {
@@ -45,7 +45,7 @@ namespace Noyry.ThunderHud.Infrastructure.Game
                 var deserialization = DateTime.UtcNow;
                 var deserializationTime = deserialization - now;
 
-                _logger.LogInformation("Deserialization response time {time}", deserializationTime);
+                _logger.LogTrace("Deserialization response time {time}", deserializationTime);
 
                 if (dto != null)
                 {

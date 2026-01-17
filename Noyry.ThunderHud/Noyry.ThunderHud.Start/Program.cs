@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Noyry.ThunderHud.Application;
-using Noyry.ThunderHud.Application.Aircraft;
+using Noyry.ThunderHud.Application.Air;
 using Noyry.ThunderHud.Infrastructure.Game;
 
 namespace Noyry.ThunderHud.Start
@@ -18,11 +18,13 @@ namespace Noyry.ThunderHud.Start
                 {
                     services
                     .AddTransient<IAircraftIndicatorService, AircraftIndicatorsService>()
-                    .AddTransient<IAircraftStateService, AircraftStateService>();
+                    .AddTransient<IAircraftStateService, AircraftStateService>()
 
-                    services.AddSingleton<HttpClient>();
+                    .AddSingleton<HttpClient>()
 
-                    services.AddSingleton<GameReaderApp>();
+                    .ConfigureConsoleRender()
+
+                    .AddSingleton<GameReaderApp>();
                 });
 
             builder.ConfigureLogging(logging => logging.AddConsole());

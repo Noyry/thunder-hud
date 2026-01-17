@@ -1,6 +1,6 @@
-﻿using Noyry.ThunderHud.Domain;
+﻿using Noyry.ThunderHud.Domain.Model.Air;
 
-namespace Noyry.ThunderHud.Application.Aircraft
+namespace Noyry.ThunderHud.Application.Air
 {
     public interface IAircraftStateService
     {

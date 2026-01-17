@@ -10,4 +10,5 @@
   <Project Path="Noyry.ThunderHud.Domain/Noyry.ThunderHud.Domain.csproj" />
   <Project Path="Noyry.ThunderHud.Infrastructure/Noyry.ThunderHud.Infrastructure.csproj" />
   <Project Path="Noyry.ThunderHud.Start/Noyry.ThunderHud.Start.csproj" />
+  <Project Path="Noyry.ThunderHud.UI/Noyry.ThunderHud.UI.csproj" Id="6eeb3e29-52a0-4028-87d0-4a82c66cca4c" />
 </Solution>

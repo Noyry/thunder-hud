@@ -1,6 +1,8 @@
-﻿namespace Noyry.ThunderHud.Domain
+﻿using Noyry.ThunderHud.Domain.Model.Abstract;
+
+namespace Noyry.ThunderHud.Domain.Model.Air
 {
-    public class Aircraft
+    public class Aircraft : IVehicle
     {
         public Aircraft(
             string name,

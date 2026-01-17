@@ -1,4 +1,4 @@
-﻿namespace Noyry.ThunderHud.Domain
+﻿namespace Noyry.ThunderHud.Domain.Model.Air
 {
     public class AircraftState
     {

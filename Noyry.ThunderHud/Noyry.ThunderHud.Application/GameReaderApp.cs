@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Noyry.ThunderHud.Application.Air;
-using Noyry.ThunderHud.Application.Interface;
+using Noyry.ThunderHud.Application.UserInterface;
 using Noyry.ThunderHud.Domain.Model.Air;
 
 namespace Noyry.ThunderHud.Application
@@ -12,35 +12,50 @@ namespace Noyry.ThunderHud.Application
             IHostEnvironment environment,
             ILogger<GameReaderApp> logger,
             IAircraftStateService aircraftStateService,
+            IAircraftIndicatorService aircraftIndicatorService,
             IRenderer<Aircraft> renderer)
         {
             _environment = environment;
             _logger = logger;
             _aircraftStateService = aircraftStateService;
+            _aircraftIndicatorService = aircraftIndicatorService;
             _renderer = renderer;
         }
 
         private readonly IHostEnvironment _environment;
         private readonly ILogger _logger;
         private readonly IAircraftStateService _aircraftStateService;
+        private readonly IAircraftIndicatorService _aircraftIndicatorService;
         private readonly IRenderer<Aircraft> _renderer;
 
         private async Task ReadGameIndicators(CancellationToken cancellationToken)
         {
             var delay = TimeSpan.FromMilliseconds(200);
+            FuelTimeCalculator fuelTimeCalculator = new();
             Console.CursorVisible = false;
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                var dto = await _aircraftStateService.GetAircraftStateAsync(cancellationToken);
-                if (dto != null)
+                var stateTask = _aircraftStateService.GetAircraftStateAsync(cancellationToken);
+                var indicatorsTask = _aircraftIndicatorService.GetAircraftIndicatorsAsync(cancellationToken);
+                await Task.WhenAll(stateTask, indicatorsTask);
+                var state = stateTask.Result;
+                var indicators = indicatorsTask.Result;
+
+                if (state != null && indicators != null)
                 {
                     var aircraft = new Aircraft(
-                        "name",
-                        new AircraftIndicators(),
-                        dto,
+                        indicators.Name,
+                        indicators,
+                        state,
                         new AircraftStaticInfo());
-                    
+
+                    var fuelLeft = fuelTimeCalculator.GetFuelTimeLeft(aircraft);
+                    aircraft.CalculatedInfo = new AircraftCalculatedInfo
+                    {
+                        FuelLeft = fuelLeft
+                    };
+
                     await _renderer.Render(aircraft, cancellationToken);
                 }
                 await Task.Delay(delay, cancellationToken);

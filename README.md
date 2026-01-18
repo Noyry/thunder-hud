@@ -9,8 +9,10 @@ For start I work with aircrafts only. Support of other types of vehicles highly 
 Platform for development and tests: Windows. Propably the tool can work on Mac OS and Linux, but I do not test it for now.
 
 Next steps:
-- add some simple useful calculations (actual fuel time left, critical speed, etc)
-- set up pipeline for better refresh rate of data
+- add some simple useful calculations (actual fuel time left, critical speed, etc)\
+*fuel calculation first revision works (once per 5 seconds refresh rate - will do better)*
+- set up pipeline for better refresh rate of data/
+*refresh rate of console UI fixed, rework of pipeline stiil is in the todo list*
 - handle possible problems on localhost requests (http errors; 'valid' field is false)
 - render data on game screen (full screen window mode for start - gonna be easier to implement plus it's my actual game mode)
 - store static data (game datamines) about vehicles

@@ -1,6 +1,6 @@
 ﻿using Noyry.ThunderHud.Domain.Model.Abstract;
 
-namespace Noyry.ThunderHud.Application.Interface
+namespace Noyry.ThunderHud.Application.UserInterface
 {
     public interface IRenderer<T> where T : IVehicle
     {

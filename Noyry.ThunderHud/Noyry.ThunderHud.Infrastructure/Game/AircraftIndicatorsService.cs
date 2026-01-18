@@ -28,9 +28,11 @@ namespace Noyry.ThunderHud.Infrastructure.Game
                 var dto = JsonSerializer.Deserialize<AircraftIndicatorsDto>(responseBody);
                 if (dto != null)
                 {
-                    AircraftIndicators result = new()
+                    AircraftIndicators result = new(dto.Type)
                     {
-                        Speed = dto.Speed
+                        Speed = dto.Speed,
+                        ClockMinutes = Convert.ToInt32(dto.ClockMin),
+                        ClockSeconds = Convert.ToInt32(dto.ClockSec)
                     };
                     return result;
                 }

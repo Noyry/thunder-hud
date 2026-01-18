@@ -11,17 +11,19 @@ namespace Noyry.ThunderHud.Domain.Model.Air
             AircraftStaticInfo staticInfo)
         {
             Name = name;
-            Indiators = indicators;
+            Indicators = indicators;
             State = state;
             StaticInfo = staticInfo;
         }
 
         public string Name { get; set; }
 
-        public AircraftIndicators Indiators { get; set; }
+        public AircraftIndicators Indicators { get; set; }
 
         public AircraftState State { get; set; }
 
         public AircraftStaticInfo StaticInfo { get; set; }
+
+        public AircraftCalculatedInfo? CalculatedInfo { get; set; }
     }
 }

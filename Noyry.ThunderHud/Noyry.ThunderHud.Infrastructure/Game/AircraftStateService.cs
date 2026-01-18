@@ -51,7 +51,10 @@ namespace Noyry.ThunderHud.Infrastructure.Game
                 {
                     AircraftState result = new()
                     {
-                        SpeedKmPerHour = dto.IndicatedAirspeedKmPerHour
+                        IndicatedSpeedKmPerHour = dto.IndicatedAirspeedKmPerHour,
+                        TrueAirspeedKmPerHour = dto.TrueAirspeedKmPerHour,
+                        AbsoluteHeightMeters = dto.HeightMeters,
+                        FuelMassKg = dto.FuelMassKg,
                     };
                     return result;
                 }

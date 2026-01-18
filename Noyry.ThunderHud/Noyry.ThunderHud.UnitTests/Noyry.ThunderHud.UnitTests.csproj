@@ -15,10 +15,14 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resourse\localhost-indicators-aircraft-invalid-001.json" />
+    <EmbeddedResource Include="Resourse\localhost-indicators-aircraft-valid-003.json" />
+    <EmbeddedResource Include="Resourse\localhost-indicators-aircraft-valid-002.json" />
     <EmbeddedResource Include="Resourse\localhost-indicators-aircraft-valid-001.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Resourse\localhost-state-aircraft-invalid-001.json" />
+    <EmbeddedResource Include="Resourse\localhost-state-aircraft-valid-004.json" />
+    <EmbeddedResource Include="Resourse\localhost-state-aircraft-valid-003.json" />
     <EmbeddedResource Include="Resourse\localhost-state-aircraft-valid-002.json" />
     <EmbeddedResource Include="Resourse\localhost-state-aircraft-valid-001.json" />
   </ItemGroup>

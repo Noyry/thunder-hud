@@ -2,6 +2,9 @@
 {
     public class AircraftState
     {
-        public int SpeedKmPerHour { get; set; }
+        public int IndicatedSpeedKmPerHour { get; set; }
+        public int TrueAirspeedKmPerHour { get; set; }
+        public int AbsoluteHeightMeters { get; set; }
+        public int FuelMassKg {  get; set; }
     }
 }

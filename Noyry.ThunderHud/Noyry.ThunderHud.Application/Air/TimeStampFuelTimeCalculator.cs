@@ -1,4 +1,5 @@
 ﻿using Noyry.ThunderHud.Domain.Model.Air;
+using System.ComponentModel.DataAnnotations;
 
 namespace Noyry.ThunderHud.Application.Air
 {
@@ -7,20 +8,15 @@ namespace Noyry.ThunderHud.Application.Air
         protected override TimeSpan CalculateFuelResult(float currentFuelMass, float fuelSpent, TimeSpan timeSpan)
         {
             double fuelConsumption = timeSpan.TotalSeconds / fuelSpent;
-            double totalMilisecondsLeft = currentFuelMass * fuelConsumption;
-            if (totalMilisecondsLeft > int.MaxValue)
+            double totalSecondsLeft = currentFuelMass * fuelConsumption;
+            if (totalSecondsLeft > int.MaxValue)
             {
                 return TimeSpan.MaxValue;
             }
 
-            return TimeSpan.FromSeconds(totalMilisecondsLeft);
+            return TimeSpan.FromSeconds(totalSecondsLeft);
         }
 
-        protected override TimeOnly GetTime(Aircraft aircraft)
-        {
-            var result = new TimeOnly(0, aircraft.TimeStamp.Minute, aircraft.TimeStamp.Second, aircraft.TimeStamp.Millisecond);
-            result = TimeOnly.FromDateTime(aircraft.TimeStamp.UtcDateTime);
-            return result;
-        }
+        protected override TimeOnly GetTime(Aircraft aircraft) => TimeOnly.FromDateTime(aircraft.Indicators.Timestamp.UtcDateTime);
     }
 }

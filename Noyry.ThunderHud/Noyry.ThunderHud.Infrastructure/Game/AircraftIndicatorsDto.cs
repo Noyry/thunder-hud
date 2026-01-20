@@ -196,5 +196,8 @@ namespace Noyry.ThunderHud.Infrastructure.Game
 
         [JsonPropertyName("fuel_consume")]
         public float? FuelConsumption { get; set; }
+
+        [JsonPropertyName("radio_altitude")]
+        public float? RadioAltitude { get; set; }
     }
 }

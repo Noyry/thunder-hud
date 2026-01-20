@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Noyry.ThunderHud.Application.Air;
+using Noyry.ThunderHud.Application.Common;
 using Noyry.ThunderHud.Domain.Model.Air;
 using System.Text.Json;
 
@@ -7,14 +8,19 @@ namespace Noyry.ThunderHud.Infrastructure.Game
 {
     public class AircraftIndicatorsService : IAircraftIndicatorService
     {
-        public AircraftIndicatorsService(IConfiguration configuration, HttpClient httpClient)
+        public AircraftIndicatorsService(
+            IConfiguration configuration,
+            HttpClient httpClient,
+            IDateTimeProvider dateTimeProvider)
         {
             _configuration = configuration;
             _httpClient = httpClient;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         public async Task<AircraftIndicators> GetAircraftIndicatorsAsync(CancellationToken cancellationToken)
         {
@@ -22,13 +28,14 @@ namespace Noyry.ThunderHud.Infrastructure.Game
             string indicatorsSubAddress = _configuration["GameReaderApp:IndicatorsSubAddress"] ?? throw new Exception("Indicators SubAddress is missing");
             string totalAddress = $"{serviceAddress}/{indicatorsSubAddress}";
             string responseBody = await _httpClient.GetStringAsync(totalAddress, cancellationToken);
+            var responseReceived = _dateTimeProvider.GetTime();
 
             if (responseBody != null)
             {
                 var dto = JsonSerializer.Deserialize<AircraftIndicatorsDto>(responseBody);
                 if (dto != null)
                 {
-                    AircraftIndicators result = new(dto.Type)
+                    AircraftIndicators result = new(dto.Type, responseReceived)
                     {
                         Speed = dto.Speed,
                         ClockMinutes = Convert.ToInt32(dto.ClockMin),
@@ -36,6 +43,7 @@ namespace Noyry.ThunderHud.Infrastructure.Game
                         InternalFuel = dto.Fuel1,
                         ExternalFuel = dto.Fuel2,
                         FuelConsumption = dto.FuelConsumption,
+                        RadioAltitude = dto.RadioAltitude
                     };
                     return result;
                 }

@@ -20,7 +20,7 @@ namespace Noyry.ThunderHud.Start
                     services
                     .AddTransient<IAircraftIndicatorService, AircraftIndicatorsService>()
                     .AddTransient<IAircraftStateService, AircraftStateService>()
-                    .AddTransient<IFuelTimeCalculator, InGameDataFuelTimeCalculator>()
+                    .AddTransient<IFuelTimeCalculator, TimeStampFuelTimeCalculator>()
                     .AddTransient<IDateTimeProvider, DateTimeProvider>()
 
                     .AddSingleton<HttpClient>()

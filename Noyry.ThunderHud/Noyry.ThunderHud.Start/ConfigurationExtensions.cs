@@ -45,8 +45,9 @@ namespace Noyry.ThunderHud.Start
             RenderObject<Aircraft> fuel = new(GetFuelLeft);
             RenderObject<Aircraft> height = new((aircraft) => $"Height: {aircraft.State.AbsoluteHeightMeters} m");
             RenderObject<Aircraft> timestamp = new((aircraft) => $"Timestamp: {DateTime.Now:HH:mm:ss:fff}");
-            
-            List<RenderObject<Aircraft>> renderObjectsList = new() { name, speed, fuel, height, timestamp };
+            RenderObject<Aircraft> fuelRaw = new((aircraft) => $"Fuel kg float: {aircraft.Indicators.TotalFuel:F5}");
+
+            List<RenderObject<Aircraft>> renderObjectsList = new() { name, speed, fuel, fuelRaw, height, timestamp };
             ReadOnlyCollection<RenderObject<Aircraft>> renderObjects = new(renderObjectsList);
 
             ConsoleRendererConfig<Aircraft> config = new (renderObjects);

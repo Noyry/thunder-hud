@@ -193,5 +193,8 @@ namespace Noyry.ThunderHud.Infrastructure.Game
 
         [JsonPropertyName("blister11")]
         public float Blister11 { get; set; }
+
+        [JsonPropertyName("fuel_consume")]
+        public float? FuelConsumption { get; set; }
     }
 }

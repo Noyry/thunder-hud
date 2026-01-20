@@ -15,5 +15,7 @@
         public int ClockSeconds {  get; set; }
 
         public float TotalFuel => InternalFuel + ExternalFuel;
+
+        public float? FuelConsumption { get; set; }
     }
 }

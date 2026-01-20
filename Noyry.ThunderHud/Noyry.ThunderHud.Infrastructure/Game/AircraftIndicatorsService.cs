@@ -33,7 +33,9 @@ namespace Noyry.ThunderHud.Infrastructure.Game
                         Speed = dto.Speed,
                         ClockMinutes = Convert.ToInt32(dto.ClockMin),
                         ClockSeconds = Convert.ToInt32(dto.ClockSec),
-                        InternalFuel = dto.Fuel1
+                        InternalFuel = dto.Fuel1,
+                        ExternalFuel = dto.Fuel2,
+                        FuelConsumption = dto.FuelConsumption,
                     };
                     return result;
                 }

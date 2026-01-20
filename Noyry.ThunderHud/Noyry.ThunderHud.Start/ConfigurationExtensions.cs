@@ -30,7 +30,7 @@ namespace Noyry.ThunderHud.Start
                 else 
                 { 
                     minutesResult = Convert.ToInt32(totalMinutes).ToString();
-                    secondsResult = fuelLeft.Seconds.ToString();
+                    secondsResult = fuelLeft.Seconds.ToString("D2");
                 }
             }
 

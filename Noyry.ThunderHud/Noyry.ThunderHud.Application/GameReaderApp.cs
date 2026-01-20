@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Noyry.ThunderHud.Application.Air;
+using Noyry.ThunderHud.Application.Common;
 using Noyry.ThunderHud.Application.UserInterface;
 using Noyry.ThunderHud.Domain.Model.Air;
 
@@ -13,13 +14,17 @@ namespace Noyry.ThunderHud.Application
             ILogger<GameReaderApp> logger,
             IAircraftStateService aircraftStateService,
             IAircraftIndicatorService aircraftIndicatorService,
-            IRenderer<Aircraft> renderer)
+            IRenderer<Aircraft> renderer,
+            IFuelTimeCalculator fuelTimeCalculator,
+            IDateTimeProvider dateTimeProvider)
         {
             _environment = environment;
             _logger = logger;
             _aircraftStateService = aircraftStateService;
             _aircraftIndicatorService = aircraftIndicatorService;
             _renderer = renderer;
+            _fuelTimeCalculator = fuelTimeCalculator;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         private readonly IHostEnvironment _environment;
@@ -27,11 +32,12 @@ namespace Noyry.ThunderHud.Application
         private readonly IAircraftStateService _aircraftStateService;
         private readonly IAircraftIndicatorService _aircraftIndicatorService;
         private readonly IRenderer<Aircraft> _renderer;
+        private readonly IFuelTimeCalculator _fuelTimeCalculator;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         private async Task ReadGameIndicators(CancellationToken cancellationToken)
         {
             var delay = TimeSpan.FromMilliseconds(200);
-            FuelTimeCalculator fuelTimeCalculator = new();
             Console.CursorVisible = false;
 
             while (!cancellationToken.IsCancellationRequested)
@@ -48,9 +54,10 @@ namespace Noyry.ThunderHud.Application
                         indicators.Name,
                         indicators,
                         state,
-                        new AircraftStaticInfo());
+                        new AircraftStaticInfo(),
+                        _dateTimeProvider.GetTime());
 
-                    var fuelLeft = fuelTimeCalculator.GetFuelTimeLeft(aircraft);
+                    var fuelLeft = _fuelTimeCalculator.GetFuelTimeLeft(aircraft);
                     aircraft.CalculatedInfo = new AircraftCalculatedInfo
                     {
                         FuelLeft = fuelLeft

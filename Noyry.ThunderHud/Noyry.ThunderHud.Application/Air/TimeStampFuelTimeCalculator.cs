@@ -1,16 +1,19 @@
 ﻿using Noyry.ThunderHud.Domain.Model.Air;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Noyry.ThunderHud.Application.Air
 {
-    public class FuelTimeCalculator : IFuelTimeCalculator
+    public class TimeStampFuelTimeCalculator : IFuelTimeCalculator
     {
         private Aircraft? _currentSavedState;
         private Aircraft? _stateMinusOne;
         private TimeSpan? _lastCalculatedResult;
 
-        private static TimeOnly GetTime(AircraftIndicators aircraftIndicators)
+        private static TimeOnly GetTime(Aircraft aircraft)
         {
-            var result = new TimeOnly(0, aircraftIndicators.ClockMinutes, aircraftIndicators.ClockSeconds);
+            var result = new TimeOnly(0, aircraft.TimeStamp.Minute, aircraft.TimeStamp.Second, aircraft.TimeStamp.Millisecond);
             return result;
         }
 
@@ -38,7 +41,9 @@ namespace Noyry.ThunderHud.Application.Air
             }
 
             int totalSeconds = timeSpan.Minutes * 60 + timeSpan.Seconds;
-            long totalSecondsLeft = fuelMass * totalSeconds / fuelSpent;
+            // todo: we can use multiply and division by 1024 here %)
+            int totalMiliseconds = totalSeconds * 1000 + timeSpan.Milliseconds;
+            long totalSecondsLeft = fuelMass * totalMiliseconds / (fuelSpent * 1000);
             if (totalSecondsLeft > int.MaxValue)
             {
                 _lastCalculatedResult = TimeSpan.MaxValue;
@@ -56,7 +61,7 @@ namespace Noyry.ThunderHud.Application.Air
                 return default;
             }
 
-            var timeDiffernce = GetTime(aircraft.Indicators) - GetTime(_currentSavedState.Indicators);
+            var timeDiffernce = GetTime(aircraft) - GetTime(_currentSavedState);
             if (timeDiffernce < TimeSpan.Zero)
             {
                 _currentSavedState = aircraft;
@@ -64,18 +69,14 @@ namespace Noyry.ThunderHud.Application.Air
                 return default;
             }
 
-            //todo: solve math errors on every second calculations
-            //keep last '_oldState' timestamp
-            //keep last 5-10 objects of Indicators in some sort of buffer (Queue?)
-            //when difference between oldest keep value and current time is equal or greater than target seconds - calculate
-            //remove states that I do not need anymore
-            if (timeDiffernce.TotalSeconds > 2)
+            //todo: looks like need base class for this one and FuelTimeCalculator
+            if (timeDiffernce.TotalSeconds > 4)
             {
                 _stateMinusOne = _currentSavedState;
                 _currentSavedState = aircraft;
                 UpdateFuelResult(timeDiffernce);
             }
-            
+
             return _lastCalculatedResult;
         }
     }

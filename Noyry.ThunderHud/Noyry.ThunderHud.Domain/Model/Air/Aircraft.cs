@@ -8,12 +8,14 @@ namespace Noyry.ThunderHud.Domain.Model.Air
             string name,
             AircraftIndicators indicators,
             AircraftState state,
-            AircraftStaticInfo staticInfo)
+            AircraftStaticInfo staticInfo,
+            DateTimeOffset timeStamp)
         {
             Name = name;
             Indicators = indicators;
             State = state;
             StaticInfo = staticInfo;
+            TimeStamp = timeStamp;
         }
 
         public string Name { get; set; }
@@ -25,5 +27,7 @@ namespace Noyry.ThunderHud.Domain.Model.Air
         public AircraftStaticInfo StaticInfo { get; set; }
 
         public AircraftCalculatedInfo? CalculatedInfo { get; set; }
+
+        public DateTimeOffset TimeStamp {  get; }
     }
 }

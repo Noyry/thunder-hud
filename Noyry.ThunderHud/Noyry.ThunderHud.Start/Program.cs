@@ -3,6 +3,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Noyry.ThunderHud.Application;
 using Noyry.ThunderHud.Application.Air;
+using Noyry.ThunderHud.Application.Common;
 using Noyry.ThunderHud.Infrastructure.Game;
 
 namespace Noyry.ThunderHud.Start
@@ -19,6 +20,8 @@ namespace Noyry.ThunderHud.Start
                     services
                     .AddTransient<IAircraftIndicatorService, AircraftIndicatorsService>()
                     .AddTransient<IAircraftStateService, AircraftStateService>()
+                    .AddTransient<IFuelTimeCalculator, TimeStampFuelTimeCalculator>()
+                    .AddTransient<IDateTimeProvider, DateTimeProvider>()
 
                     .AddSingleton<HttpClient>()
 
